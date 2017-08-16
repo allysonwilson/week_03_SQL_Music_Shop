@@ -13,20 +13,20 @@ class Artist
 
   def save
     sql = ' INSERT INTO artists (name)
-    VALUES ( $1 ) RETURNING *;'
+      VALUES ( $1 ) RETURNING *;'
+
     values = [@name]
 
     returned_data = SqlRunner.run(sql, values)
+
     @id = returned_data[0]['id'].to_i()
     #this part always the same for save functions?
-
   end
 
   def Artist.all
     sql = 'SELECT * FROM artists;'
-
     return SqlRunner.run( sql ).map { |artist| Artist.new( artist ) }
-                      #whats happening here? creating instance of artist?
-  end
+  end                #whats happening here? creating instance of artist?
+
 
 end
